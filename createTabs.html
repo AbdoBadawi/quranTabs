@@ -4,10 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create Tabs</title>
-    <link rel="stylesheet" href="createTabs.css" />
+    <link rel="stylesheet" href="./createTabs.css" />
   </head>
   <body>
     <main>
+      <div class="bars-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="nav">
+        <ul class="nav__links" dir="rtl">
+          <button class="close-btn">X</button>
+          <li class="nav__link"><a href="createTabs.html">رقية شرعية مبسطة</a></li>
+          <li class="nav__link"><a href="#">اذكار الصباح</a></li>
+          <li class="nav__link"><a href="#">اذكار المساء</a></li>
+          <li class="nav__link"><a href="#">تغيير اللون الاساسي</a>
+            <input type="color" name="" id="main-color"></li></li>
+          <li class="nav__link"><a href="#">تغيير لون المحتوي</a>
+          <input type="color" name="" id="content-color"></li>
+          <li class="nav__link"><a href="#">شفافية خلفية المحتوي</a>
+          <input type="range" min="0" max="100" step="5" name="" id="alpha-range"></li>
+          <li class="nav__link"><a href="#" class="rand-background">تغيير الخلفية</a>
+          </li>
+          <li class="nav__link"><a class="default" href="#">الافتراضي 🔄</a>
+          </li>
+        </ul>
+      </div>
+      <div class="date"></div>
       <ul class="tabs" dir="rtl">
         <li class="active" data-cont=".one">ذكر 1</li>
         <li data-cont=".two">ذكر 2</li>
@@ -123,6 +147,7 @@
           <span class="no"></span>
           -بسم الله ثلاثا ثم اعوذ بالله وقدرته من شر ما اجد واحاذر
         </div>
+        <p class="progress"></p>
       </div>
       <div class="counter">
         <p class="count">0</p>
@@ -132,7 +157,10 @@
           <button class="free">Free Count Disabled</button>
         </div>
       </div>
+      <footer>
+        &copy; All Copy Rights Reserved to <strong> Abdo Badawi </strong> 2024
+      </footer>
     </main>
-    <script src="createTabs.js"></script>
+    <script src="./createTabs.js"></script>
   </body>
 </html>

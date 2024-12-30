@@ -206,7 +206,6 @@ main {
 
 .tabs li {
   padding: 10px;
-  /* background-color: var(--main-color); */
   cursor: pointer;
   transition: 0.6s;
   flex-grow: 1;
@@ -215,7 +214,6 @@ main {
 
 .tabs li.active,
 .tabs li:hover {
-  /* background-color: var(--main-color); */
   background-color: #222;
   transform: skew(-12deg) scale(1.1);
   color: var(--font-color);
@@ -325,6 +323,7 @@ footer {
   letter-spacing: 2px;
   font-size: 12px;
   text-align: center;
+  user-select: none;
 }
 
 @media screen and (max-width: 1000px) {

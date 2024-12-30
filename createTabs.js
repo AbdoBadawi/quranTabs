@@ -19,9 +19,38 @@ const reset = document.querySelector('.reset');
 const freeBtn = document.querySelector('.free');
 const count = document.querySelector('.count');
 const date = document.querySelector('.date');
+
 let free = false;
 
 // local storage
+if (localStorage.getItem('backgroundImg')) {
+  document.body.style.backgroundImage = `url(${localStorage.getItem(
+    'backgroundImg'
+  )})`;
+}
+
+if (localStorage.getItem('alpha')) {
+  if (localStorage.getItem('contentColor')) {
+    console.log('hello content');
+    contentArr.forEach(content => {
+      content.style.backgroundColor = hexToRgb(
+        localStorage.getItem('contentColor')
+      );
+    });
+  } else {
+    contentArr.forEach(content => {
+      content.style.backgroundColor = `rgba(30, 36, 44, ${
+        localStorage.getItem('alpha') / 100
+      })`;
+    });
+  }
+  alpha.value = localStorage.getItem('alpha');
+} else if (localStorage.getItem('contentColor')) {
+  console.log('hello again');
+  contentArr.forEach(content => {
+    content.style.backgroundColor = hexToRgb(contentColor.value);
+  });
+}
 
 // display date
 const now = new Date();
@@ -51,6 +80,7 @@ setInterval(function () {
 }, 1000);
 
 //// nav
+// open and close
 menuBtn.addEventListener('click', function () {
   nav.style.display = 'flex';
 });
@@ -59,17 +89,60 @@ closeBtn.addEventListener('click', function () {
   nav.style.display = 'none';
 });
 
-alpha.addEventListener('change', function () {
-  // !fix must set to each content div not the current only
-  currentContent.style.backgroundColor = `rgba(30, 36, 44, ${
-    this.value / 100
+// colors
+function hexToRgb(hex) {
+  // Remove the '#' symbol if present
+  hex = hex.replace('#', '');
+
+  // Ensure hex is 6 characters long (e.g., 'FFFFFF')
+  if (hex.length !== 6) {
+    throw new Error('Invalid hexadecimal color code.');
+  }
+
+  // Extract the red, green, and blue components
+  const r = parseInt(hex.slice(0, 2), 16);
+  const g = parseInt(hex.slice(2, 4), 16);
+  const b = parseInt(hex.slice(4, 6), 16);
+
+  return `rgba(${r}, ${g}, ${b}, ${
+    localStorage.getItem('alpha') / 100 || 0.5
   })`;
+}
+
+alpha.addEventListener('change', function () {
+  localStorage.alpha = this.value;
+  if (localStorage.getItem('contentColor')) {
+    contentArr.forEach(content => {
+      content.style.backgroundColor = hexToRgb(
+        localStorage.getItem('contentColor')
+      );
+    });
+  } else {
+    contentArr.forEach(content => {
+      content.style.backgroundColor = `rgba(30, 36, 44, ${this.value / 100})`;
+    });
+  }
 });
 
 contentColor.addEventListener('change', function () {
-  currentContent.style.backgroundColor = this.value;
+  contentArr.forEach(content => {
+    content.style.backgroundColor = hexToRgb(contentColor.value);
+  });
+  localStorage.setItem('contentColor', this.value);
 });
 
+mainColor.addEventListener('change', function () {
+  tabsArr.forEach(tab => {
+    tab.parentElement.style.backgroundColor = this.value;
+    tab.style.backgroundColor = this.value;
+  });
+  contentArr.forEach(content => {
+    content.style.borderBottomColor = this.value;
+  });
+  add.style.backgroundColor = this.value;
+});
+
+// backgroundImage
 const listOfImages = [
   'a56d09f97e55a53473e610e749479449.jpg',
   'ancient-ornamented-arches-symbolize-religious-spirituality-in-architecture-generated-by-ai-free-photo.jpg',
@@ -98,18 +171,28 @@ const listOfImages = [
 ];
 
 changeBackground.addEventListener('click', function () {
-  document.body.style.backgroundImage = `url(./${
-    listOfImages[Math.floor(Math.random() * listOfImages.length)]
-  })`;
-  console.log(
-    `url(./${listOfImages[Math.floor(Math.random() * listOfImages.length)]})`
-  );
+  let randImg = listOfImages[Math.floor(Math.random() * listOfImages.length)];
+
+  if (localStorage.getItem('backgroundImg')) {
+    while (localStorage.getItem('backgroundImg') == randImg) {
+      randImg = listOfImages[Math.floor(Math.random() * listOfImages.length)];
+    }
+  } else {
+    while (randImg == 'photo-1570206916435-745fc43bb9c1.jpg') {
+      randImg = listOfImages[Math.floor(Math.random() * listOfImages.length)];
+    }
+  }
+  document.body.style.backgroundImage = `url(./${randImg})`;
+
+  localStorage.setItem('backgroundImg', randImg);
 });
 
+// reset to default
 defaultSettings.addEventListener('click', function () {
-  // localStorage.clear()
-  // window.location.reload();
-  // nav.style.display = 'none'
+  localStorage.clear();
+  nav.style.display = 'none';
+  window.location.reload();
+  // document.body.style.backgroundImage = `url(./photo-1570206916435-745fc43bb9c1.jpg)`;
 });
 
 //// tabs

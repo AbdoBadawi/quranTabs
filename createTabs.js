@@ -13,17 +13,25 @@ const changeBackground = document.querySelector('.rand-background');
 const defaultSettings = document.querySelector('.default');
 
 const menuBtn = document.querySelector('.bars-icon');
-const closeBtn = document.querySelector('.close-btn');
+const closeBtn = document.querySelectorAll('.close-btn');
+const overlay = document.querySelector('.overlay');
+const modal = document.querySelector('.modal');
+const infoBtn = document.querySelector('.info-icon');
+const copyBtn = document.querySelector('.copy-btn');
+
+const date = document.querySelector('.date');
+
 const add = document.querySelector('.add');
 const reset = document.querySelector('.reset');
 const freeBtn = document.querySelector('.free');
 const count = document.querySelector('.count');
-const date = document.querySelector('.date');
 
 const root = document.documentElement;
 let free = false;
 
 // local storage
+copyBtn.style.stroke = '#777';
+
 if (localStorage.getItem('backgroundImg')) {
   document.body.style.backgroundImage = `url(${localStorage.getItem(
     'backgroundImg'
@@ -52,7 +60,10 @@ if (localStorage.getItem('alpha')) {
 }
 
 if (localStorage.getItem('mainColor')) {
-  root.style.setProperty('--main-color-light', localStorage.getItem('mainColor'));
+  root.style.setProperty(
+    '--main-color-light',
+    localStorage.getItem('mainColor')
+  );
 }
 
 // display date
@@ -88,8 +99,26 @@ menuBtn.addEventListener('click', function () {
   nav.style.display = 'flex';
 });
 
-closeBtn.addEventListener('click', function () {
-  nav.style.display = 'none';
+closeBtn.forEach(btn =>
+  btn.addEventListener('click', function (e) {
+    e.target.parentElement.style.display = 'none';
+    overlay.style.display = 'none';
+  })
+);
+
+overlay.addEventListener('click', function () {
+  overlay.style.display = 'none';
+  modal.style.display = 'none';
+});
+
+infoBtn.addEventListener('click', function () {
+  modal.style.display = 'block';
+  overlay.style.display = 'block';
+});
+
+copyBtn.addEventListener('click', function () {
+  navigator.clipboard.write(window.location.href);
+  this.style.stroke = 'green';
 });
 
 // colors
@@ -226,6 +255,9 @@ tabsArr.forEach(tab => {
     counter = 0;
     count.innerHTML = counter;
     progress.style.width = 0;
+    add.innerHTML = 'Add';
+    add.style.backgroundColor =
+      localStorage.getItem('mainColor') || 'rgba(27, 41, 67, 0.9)';
   });
 });
 
@@ -253,6 +285,9 @@ freeBtn.addEventListener('click', function () {
   }
   counter = 0;
   count.innerHTML = counter;
+  add.innerHTML = 'Add';
+  add.style.backgroundColor =
+    localStorage.getItem('mainColor') || 'rgba(27, 41, 67, 0.9)';
 });
 
 //// add
@@ -270,7 +305,15 @@ add.addEventListener('click', function () {
       progress.style.width = `${Math.trunc(
         (+count.innerHTML / currentContent.dataset.count) * 100
       )}%`;
+
+      if (counter == currentContent.dataset.count) {
+        add.innerHTML = 'Next';
+        add.style.backgroundColor = 'green';
+      }
     } else {
+      add.innerHTML = 'Add';
+      add.style.backgroundColor =
+        localStorage.getItem('mainColor') || 'rgba(27, 41, 67, 0.9)';
       counter = 0;
       count.innerHTML = counter;
       if (tabsArr.length - 1 == index) {
@@ -289,4 +332,7 @@ add.addEventListener('click', function () {
 reset.addEventListener('click', function () {
   count.innerHTML = counter = 0;
   progress.style.width = 0;
+  add.innerHTML = 'Add';
+  add.style.backgroundColor =
+    localStorage.getItem('mainColor') || 'rgba(27, 41, 67, 0.9)';
 });

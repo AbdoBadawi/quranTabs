@@ -58,7 +58,7 @@ main {
   z-index: 9999;
   display: flex;
   /* align-items: center; */
-  /* display: none; */
+  display: none;
 }
 
 .bars-icon {
@@ -370,9 +370,7 @@ footer {
 
 @media screen and (max-width: 450px) {
   .nav__link {
-    
     font-size: 24px;
-    
   }
 
   .close-btn {

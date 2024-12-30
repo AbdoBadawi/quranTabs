@@ -20,6 +20,7 @@ const freeBtn = document.querySelector('.free');
 const count = document.querySelector('.count');
 const date = document.querySelector('.date');
 
+const root = document.documentElement;
 let free = false;
 
 // local storage
@@ -31,7 +32,6 @@ if (localStorage.getItem('backgroundImg')) {
 
 if (localStorage.getItem('alpha')) {
   if (localStorage.getItem('contentColor')) {
-    console.log('hello content');
     contentArr.forEach(content => {
       content.style.backgroundColor = hexToRgb(
         localStorage.getItem('contentColor')
@@ -46,10 +46,13 @@ if (localStorage.getItem('alpha')) {
   }
   alpha.value = localStorage.getItem('alpha');
 } else if (localStorage.getItem('contentColor')) {
-  console.log('hello again');
   contentArr.forEach(content => {
     content.style.backgroundColor = hexToRgb(contentColor.value);
   });
+}
+
+if (localStorage.getItem('mainColor')) {
+  root.style.setProperty('--main-color-light', localStorage.getItem('mainColor'));
 }
 
 // display date
@@ -132,14 +135,16 @@ contentColor.addEventListener('change', function () {
 });
 
 mainColor.addEventListener('change', function () {
-  tabsArr.forEach(tab => {
-    tab.parentElement.style.backgroundColor = this.value;
-    tab.style.backgroundColor = this.value;
-  });
-  contentArr.forEach(content => {
-    content.style.borderBottomColor = this.value;
-  });
-  add.style.backgroundColor = this.value;
+  root.style.setProperty('--main-color-light', this.value);
+  localStorage.setItem('mainColor', this.value);
+  // tabsArr.forEach(tab => {
+  //   tab.parentElement.style.backgroundColor = this.value;
+  //   tab.style.backgroundColor = this.value;
+  // });
+  // contentArr.forEach(content => {
+  //   content.style.borderBottomColor = this.value;
+  // });
+  // add.style.backgroundColor = this.value;
 });
 
 // backgroundImage

@@ -76,7 +76,24 @@ const listOfImages = [
   'india-taj-mahal-agra-architecture.jpg',
   'islamic-xptqk5xw6adpezzv.jpg',
   'mosque-6231915_640.jpg',
+  'photo-1509814047455-cfe301a66b2a.jpg',
+  'photo-1527838832700-5059252407fa.jpg',
+  'photo-1553755088-ef1973c7b4a1.jpg',
+  'photo-1554976757-606d486f5d92.jpg',
+  'photo-1560601575-29dc7d25ff3b.jpg',
   'photo-1570206916435-745fc43bb9c1.jpg',
+  'photo-1574246604907-db69e30ddb97.jpg',
+  'photo-1579005162077-541af2cae3e4.jpg',
+  'photo-1584650605024-7344812fa167.jpg',
+  'photo-1585036156171-384164a8c675.jpg',
+  'photo-1587617425953-9075d28b8c46.jpg',
+  'photo-1590075865003-e48277faa558.jpg',
+  'photo-1600814832809-579119f47045.jpg',
+  'photo-1605976528013-638e49b6599f.jpg',
+  'photo-1616422840391-fa670d4b2ae7.jpg',
+  'photo-1626079313403-7399d1aa95cf.jpg',
+  'photo-1712844404689-653e88152472.jpg',
+  'photo-1733063166436-e3550c66f9eb.jpg',
   'pngtree-islamic-festival-title-banner-image_16134790.jpg',
 ];
 
@@ -183,4 +200,5 @@ add.addEventListener('click', function () {
 ////reset
 reset.addEventListener('click', function () {
   count.innerHTML = counter = 0;
+  progress.style.width = 0;
 });

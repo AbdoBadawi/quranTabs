@@ -51,12 +51,14 @@ main {
   width: 100%;
   min-height: 100vh;
   position: fixed;
+  top: 0;
+  left: 0;
   color: #fff;
   background-color: rgba(0, 10, 20, 0.7);
   z-index: 9999;
   display: flex;
   /* align-items: center; */
-  display: none;
+  /* display: none; */
 }
 
 .bars-icon {
@@ -322,6 +324,34 @@ footer {
   font-weight: normal;
   letter-spacing: 2px;
   font-size: 12px;
+  text-align: center;
+}
+
+@media screen and (max-width: 1000px) {
+  .nav__link {
+    font-size: 32px;
+  }
+}
+
+@media screen and (max-width: 815px) {
+  main {
+    padding: 15px;
+    padding-right: 15px;
+  }
+
+  .nav__links {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .nav__link {
+    font-size: 32px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .nav__links {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 @media screen and (max-width: 500px) {
@@ -335,5 +365,27 @@ footer {
 
   .no {
     font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .nav__link {
+    
+    font-size: 24px;
+    
+  }
+
+  .close-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #fff;
+    padding: 10px;
+    transition: 0.3s;
+    background-color: transparent;
+    outline: none;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
   }
 }

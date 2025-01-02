@@ -28,9 +28,18 @@ const count = document.querySelector('.count');
 
 const root = document.documentElement;
 let free = false;
-
+let started = false;
 // local storage
-copyBtn.style.stroke = '#777';
+if (localStorage.getItem('start')) {
+  started = localStorage.getItem('start');
+}
+
+if (!started) {
+  overlay.style.display = 'block';
+  modal.style.display = 'block';
+  started = !started;
+  localStorage.setItem('start', started);
+}
 
 if (localStorage.getItem('backgroundImg')) {
   document.body.style.backgroundImage = `url(${localStorage.getItem(
@@ -117,8 +126,11 @@ infoBtn.addEventListener('click', function () {
 });
 
 copyBtn.addEventListener('click', function () {
-  navigator.clipboard.write(window.location.href);
-  this.style.stroke = 'green';
+  navigator.clipboard.writeText(window.location.href);
+  this.classList.add('active');
+  setTimeout(() => {
+    copyBtn.classList.remove('active');
+  }, 700);
 });
 
 // colors

@@ -342,6 +342,7 @@ add.addEventListener('click', function () {
 
 ////reset
 reset.addEventListener('click', function () {
+  span.innerHTML = `عدد التكرار المتبقي: ${span.parentElement.dataset.count}`;
   count.innerHTML = counter = 0;
   progress.style.width = 0;
   add.innerHTML = 'Add';
